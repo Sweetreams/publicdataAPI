@@ -11,7 +11,7 @@ const app = express()
 async function main(){
     app.use(express.json())
     app.use(cors({
-      origin: ['https://publicdata-frontend-2hewbdrp0-pavels-projects-089fe0b1.vercel.app', 'https://publicdata-frontend.vercel.app']
+      origin: ['https://publicdata-frontend-2hewbdrp0-pavels-projects-089fe0b1.vercel.app', 'https://publicdata-frontend.vercel.app', 'http://localhost:5173']
     }))
     app.use('/user', userRouter)
     app.use('/set', setRouter)
