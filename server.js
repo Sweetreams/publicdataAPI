@@ -1,0 +1,30 @@
+import express from 'express'
+import {userRouter} from './source/user/user.controller.js'
+import { PrismaClient } from '@prisma/client'
+import cors from 'cors'
+import { setRouter } from './source/setdata/setdata.controller.js'
+
+const prisma = new PrismaClient()
+const app = express()
+
+
+async function main(){
+    app.use(express.json())
+    app.use(cors({
+      origin: 'http://localhost:5173'
+    }))
+    app.use('/user', userRouter)
+    app.use('/set', setRouter)
+
+    app.listen(8000, () => {
+      console.log('8000')
+    })
+}
+
+main()
+  .catch(e => {
+    throw e
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })

@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int     @id @default(autoincrement())
+  email          String  @unique
+  login          String  @unique
+  bcryptpassword String
+  name           String?
+  role           ROLE    @default(user)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SetDB {
+  id   Int  @id @default(autoincrement())
+  data Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  DataSet DataSet[]
+}
+
+model DataSet {
+  id     Int   @id @default(autoincrement())
+  setdb  SetDB @relation(fields: [id_set], references: [id])
+  id_set Int
+  data   Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ROLE {
+  user
+  admin
+}
