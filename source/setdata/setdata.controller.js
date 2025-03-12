@@ -30,34 +30,29 @@ router.get('/getdata', JWTvalidate, async (req, res) => {
 })
 
 router.get('/getdataset', JWTvalidate, async (req, res) => {
-    const data = await setService.getDataSet()
-    return res.status(200).json({
-        data: data
-    })
-    // try {
-        // const data = await setService.getDataSetID(req.query.id)
-        
-        // return res.status(200).json({
-        //     status: state.SUCCESS,
-        //     data: {
-        //         code: 200,
-        //         message: {
-        //             data: data[0].data.data,
-        //             title: data[0].data.title
-        //         }
-        //     }
-        // })
-    // } catch (error) {
-    //     console.log(error)
-    //     return res.status(400).json({
-    //         status: state.ERROR,
-    //         error: {
-    //             code: 400,
-    //             error_message: error,
-    //             message: 'Произошла ошибка'
-    //         }
-    //     })
-    // }
+    try {
+        const data = await setService.getDataSetID(req.query.id)
+        return res.status(200).json({
+            status: state.SUCCESS,
+            data: {
+                code: 200,
+                message: {
+                    data: data[0].data.data,
+                    title: data[0].data.title
+                }
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            status: state.ERROR,
+            error: {
+                code: 400,
+                error_message: error,
+                message: 'Произошла ошибка'
+            }
+        })
+    }
 })
 
 //TODO: Добавить проверку на admin
@@ -68,8 +63,7 @@ router.post('/createset', JWTvalidate, async(req, res) => {
 })
 
 router.post('/createsetdata', JWTvalidate, async(req, res) => {
-    const data = await setService.createDataSet(req.body)
-    console.log(data)
+    await setService.createDataSet(req.body)
 })
 
 router.delete('/deletedataset', JWTvalidate, async(req, res) => {
