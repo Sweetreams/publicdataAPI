@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 export class User {
     prisma = prisma
 
-    getUser(login){
+    getUser(login) {
         return this.prisma.user.findMany({
             where: {
                 login: login,
@@ -12,27 +12,36 @@ export class User {
         })
     }
 
-    createUser(user){
-       return this.prisma.user.create({
-        data:user
-       })
-    }
-
-    getIdUser(id){
+    getIdUser(id) {
         return this.prisma.user.findMany({
-            where: {id: Number(id)}
+            where: { id: Number(id) }
         })
     }
 
-    getUserLogin(login){
-         return this.prisma.user.findMany({
+    getUserLogin(login) {
+        return this.prisma.user.findMany({
             where: {
                 login: login,
             }
         })
     }
 
-    deleteUser(id){
+    editingUser(id, dataed){
+        return this.prisma.user.update({
+            where: {id: Number(id)},
+            data: {
+                ...dataed
+            }
+        })
+    }
+
+    createUser(user) {
+        return this.prisma.user.create({
+            data: user
+        })
+    }
+
+    deleteUser(id) {
         return this.prisma.user.deleteUser({
             where: {
                 id: Number(id)

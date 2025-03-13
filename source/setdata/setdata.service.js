@@ -3,7 +3,7 @@ const prisma = new PrismaClient()
 
 export class SetData {
     prisma = prisma
-
+    //Получение данных
     getSet() {
         return this.prisma.setDB.findMany()
     }
@@ -15,11 +15,13 @@ export class SetData {
     getDataSetID(id) {
         return this.prisma.dataSet.findMany({
             where: {
-                id_set: Number(id)
+                setdb: {
+                    id: Number(id)
+                }
             }
         })
     }
-
+    //Создание данных
     createSet(dataset) {
         return this.prisma.setDB.create({
             data: {
@@ -29,18 +31,25 @@ export class SetData {
     }
 
     createDataSet(dataset, id) {
-        return this.prisma.setDB.create({
+        return this.prisma.dataSet.create({
             data: {
-                id_set: id,
-                data: dataset
-            }
+                data: dataset,
+                setdb: {
+                    connect: {
+                        id: id
+                    }
+                }
+            },
+
         })
     }
+    //Изменение данных
 
+    //Удаление данных
     deleteDataSetID(id) {
         return this.prisma.dataSet.deleteMany({
             where: {
-                id_set: Number(id)
+                id: Number(id)
             }
         })
     }

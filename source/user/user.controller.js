@@ -23,7 +23,7 @@ router.post('/loginuser', async (req, res) => {
         }
 
         const isMatch = await bcrypt.compare(req.body?.password, user[0].bcryptpassword)
-        
+
 
         if (!isMatch) {
             return res.status(400).json({
@@ -48,10 +48,10 @@ router.post('/loginuser', async (req, res) => {
                 token: token,
                 role: user[0].role
             }
-        })   
+        })
     } catch (error) {
-    console.log(error)
-}
+        console.log(error)
+    }
 })
 
 router.post('/createuser', async (req, res) => {
@@ -114,6 +114,29 @@ router.get('/profile', JWTvalidate, async (req, res) => {
             }
         })
     }
+})
+
+router.put('/editinguser', JWTvalidate, async (req, res) => {
+    try {
+        await userService.editingUser(req.body.id, req.body.data)
+        return res.status(200).json({
+            status: state.SUCCESS,
+            data: {
+                code: 200,
+                message: "Успешно"
+            }
+        })
+    } catch (error) {
+        return res.status(400).json({
+            status: state.SUCCESS,
+            data: {
+                code: 400,
+                error: error,
+                message: "Произошла ошибка"
+            }
+        })
+    }
+
 })
 
 export const userRouter = router
