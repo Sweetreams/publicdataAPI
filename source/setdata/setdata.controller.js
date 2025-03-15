@@ -32,7 +32,7 @@ router.get('/getdata', JWTvalidate, async (req, res) => {
 
 router.get('/getdataset', JWTvalidate, async (req, res) => {
     try {
-        const data = await setService.getDataSet(req.query.id)
+        const data = await setService.getDataSetID(req.query.id)
         if(data.length < 1){
             return res.status(400).json({
                 status: state.ERROR,
@@ -70,12 +70,12 @@ router.post('/createset', JWTvalidate, JWTAdminfind, async (req, res) => {
     console.log(await setService.createSet(req.body))
 })
 
-router.post('/createsetanddataset', JWTvalidate, JWTAdminfind, async (req, res) => {
-    console.log(await setService.createSetAndDataSet(req.body))
-})
-
 router.post('/createsetdata', JWTvalidate, JWTAdminfind, async (req, res) => {
     console.log(await setService.createDataSet(req.body?.data, req.body?.id_set))
+})
+
+router.post('/createsetanddataset', JWTvalidate, JWTAdminfind, async (req, res) => {
+    console.log(await setService.createSetAndDataSet(req.body))
 })
 
 router.delete('/deletedataset', JWTvalidate, JWTAdminfind, async (req, res) => {
@@ -84,6 +84,10 @@ router.delete('/deletedataset', JWTvalidate, JWTAdminfind, async (req, res) => {
 
 router.delete('/deletesetdb', JWTvalidate, JWTAdminfind, async (req, res) => {
     console.log(await setService.deleteSetID(req.body?.id))
+})
+
+router.delete('/deletesetdbanddataset', JWTvalidate, JWTAdminfind, async (req, res) => {
+    console.log(await setService.deleteSetDBAndDataSet(req.body?.id))
 })
 
 export const setRouter = router

@@ -31,7 +31,7 @@ export class SetData {
                     data: dataset
                 }
             });
-    
+
             const updatedSet = await prisma.setDB.update({
                 where: {
                     id: createdSet.id
@@ -43,7 +43,7 @@ export class SetData {
                     }
                 }
             });
-    
+
             return updatedSet;
         });
     }
@@ -62,7 +62,7 @@ export class SetData {
         })
     }
 
-    createSetAndDataSet(dataset){
+    createSetAndDataSet(dataset) {
         this.prisma.$transaction(async (prisma) => {
 
             const createdSet = await prisma.setDB.create({
@@ -70,7 +70,7 @@ export class SetData {
                     data: dataset.set
                 }
             });
-    
+
             const updatedSet = await prisma.setDB.update({
                 where: {
                     id: createdSet.id
@@ -92,7 +92,7 @@ export class SetData {
                         }
                     }
                 },
-    
+
             })
             return createDataSet
         });
@@ -113,5 +113,25 @@ export class SetData {
                 id: Number(id)
             }
         })
+    }
+
+    deleteSetDBAndDataSet(id) {
+        console.log(id)
+        return this.prisma.$transaction(async (prisma) => {
+            
+            await prisma.dataSet.deleteMany({
+                where: {
+                    id_set: Number(id)
+                }
+            });
+
+            const setDB = await prisma.setDB.delete({
+                where: {
+                    id: Number(id)
+                }
+            });
+
+            return setDB;
+        });
     }
 }
