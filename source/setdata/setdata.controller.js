@@ -32,13 +32,12 @@ router.get('/getdata', JWTvalidate, async (req, res) => {
 
 router.get('/getdataset', JWTvalidate, async (req, res) => {
     try {
-        const data = await setService.getDataSetID(req.query.id)
+        const data = await setService.getDataSet(req.query.id)
         if(data.length < 1){
             return res.status(400).json({
                 status: state.ERROR,
                 error: {
                     code: 400,
-                    error_message: error,
                     message: 'Данные не найдены'
                 }
             })
@@ -67,15 +66,24 @@ router.get('/getdataset', JWTvalidate, async (req, res) => {
 //TODO: Добавить проверку на admin
 
 router.post('/createset', JWTvalidate, JWTAdminfind, async (req, res) => {
-    await setService.createSet(req.body)
+    
+    console.log(await setService.createSet(req.body))
+})
+
+router.post('/createsetanddataset', JWTvalidate, JWTAdminfind, async (req, res) => {
+    console.log(await setService.createSetAndDataSet(req.body))
 })
 
 router.post('/createsetdata', JWTvalidate, JWTAdminfind, async (req, res) => {
-    await setService.createDataSet(req.body?.data, req.body?.id_set)
+    console.log(await setService.createDataSet(req.body?.data, req.body?.id_set))
 })
 
 router.delete('/deletedataset', JWTvalidate, JWTAdminfind, async (req, res) => {
     console.log(await setService.deleteDataSetID(req.body?.id))
+})
+
+router.delete('/deletesetdb', JWTvalidate, JWTAdminfind, async (req, res) => {
+    console.log(await setService.deleteSetID(req.body?.id))
 })
 
 export const setRouter = router
