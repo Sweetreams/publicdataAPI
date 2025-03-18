@@ -79,15 +79,112 @@ router.post('/createsetanddataset', JWTvalidate, JWTAdminfind, async (req, res) 
 })
 
 router.delete('/deletedataset', JWTvalidate, JWTAdminfind, async (req, res) => {
-    console.log(await setService.deleteDataSetID(req.body?.id))
+    try {
+        const data = await setService.deleteDataSetID(req.body?.id)
+        data.count != 1 ? 
+        (
+            res.status(400).json({
+                status: state.ERROR,
+                error: {
+                    code: 400,
+                    error_message: error,
+                    message: 'Не удалось удалить данные'
+                }
+            })
+        ) :
+        (
+            res.status(400).json({
+            status: state.SUCCESS,
+            data: {
+                code: 200,
+                message: {
+                    data: 'Днные успешно удалены',
+                }
+            }}) 
+        )
+    } catch (error) {
+        res.status(400).json({
+            status: state.ERROR,
+            error: {
+                code: 400,
+                error_message: error,
+                message: 'Произошла ошибка'
+            }
+        })
+    }
+    
 })
 
 router.delete('/deletesetdb', JWTvalidate, JWTAdminfind, async (req, res) => {
-    console.log(await setService.deleteSetID(req.body?.id))
+    try {
+        const data = await setService.deleteSetID(req.body?.id)
+        data.count != 1 ? 
+        (
+            res.status(400).json({
+                status: state.ERROR,
+                error: {
+                    code: 400,
+                    error_message: error,
+                    message: 'Не удалось удалить данные'
+                }
+            })
+        ) :
+        (
+            res.status(400).json({
+            status: state.SUCCESS,
+            data: {
+                code: 200,
+                message: {
+                    data: 'Данные успешно удалены',
+                }
+            }}) 
+        )
+    } catch (error) {
+        res.status(400).json({
+            status: state.ERROR,
+            error: {
+                code: 400,
+                error_message: error,
+                message: 'Произошла ошибка'
+            }
+        })
+    }
 })
 
 router.delete('/deletesetdbanddataset', JWTvalidate, JWTAdminfind, async (req, res) => {
-    console.log(await setService.deleteSetDBAndDataSet(req.body?.id))
+    try {
+        const data = await setService.deleteSetDBAndDataSet(req.body?.id)
+        data.count != 1 ? 
+        (
+            res.status(400).json({
+                status: state.ERROR,
+                error: {
+                    code: 400,
+                    error_message: error,
+                    message: 'Не удалось удалить данные'
+                }
+            })
+        ) :
+        (
+            res.status(400).json({
+            status: state.SUCCESS,
+            data: {
+                code: 200,
+                message: {
+                    data: 'Данные успешно удалены',
+                }
+            }}) 
+        )
+    } catch (error) {
+        res.status(400).json({
+            status: state.ERROR,
+            error: {
+                code: 400,
+                error_message: error,
+                message: 'Произошла ошибка'
+            }
+        })
+    }
 })
 
 export const setRouter = router

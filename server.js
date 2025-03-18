@@ -16,8 +16,8 @@ async function main(){
         'https://publicdata-frontend.vercel.app',
         'http://localhost:5173'
       ],
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
-      allowedHeaders: ['Content-Type', 'Authorization'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'cache-control'],
       credentials: true
     }))
     app.use('/user', userRouter)
