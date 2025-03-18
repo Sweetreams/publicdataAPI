@@ -17,7 +17,7 @@ async function main(){
         'http://localhost:5173'
       ],
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization', 'cache-control', 'pragma'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'cache-control', 'pragma', 'expires'],
       credentials: true
     }))
     app.use('/user', userRouter)
