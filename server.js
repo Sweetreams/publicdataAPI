@@ -12,9 +12,8 @@ async function main() {
   app.use(express.json())
   app.use(cors({
     origin: [
-      'https://publicdata-frontend-2hewbdrp0-pavels-projects-089fe0b1.vercel.app',
-      'https://publicdata-frontend.vercel.app',
-      'http://localhost:5173'
+      "https://publicdata-frontend.vercel.app",
+      "http://localhost:5173"
     ],
     methods: "GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS",
     credentials: true,
