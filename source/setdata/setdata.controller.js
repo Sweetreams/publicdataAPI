@@ -63,8 +63,6 @@ router.get('/getdataset', JWTvalidate, async (req, res) => {
     }
 })
 
-//TODO: Добавить проверку на admin
-
 router.post('/createset', JWTvalidate, JWTAdminfind, async (req, res) => {
     
     console.log(await setService.createSet(req.body))
@@ -75,7 +73,7 @@ router.post('/createsetdata', JWTvalidate, JWTAdminfind, async (req, res) => {
 })
 
 router.post('/createsetanddataset', JWTvalidate, JWTAdminfind, async (req, res) => {
-    console.log(await setService.createSetAndDataSet(req.body))
+    console.log(setService.createSetAndDataSet(req.body))
 })
 
 router.delete('/deletedataset', JWTvalidate, JWTAdminfind, async (req, res) => {
